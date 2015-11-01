@@ -1,9 +1,8 @@
-package transit
+package muni
 
 import (
 	"encoding/xml"
 	"io/ioutil"
-	"net/http"
 	"strconv"
 	"time"
 )
@@ -40,8 +39,9 @@ var lastRequestTimes = map[string]int64{}
 
 func GetVehiclesData(route string) (*VehicalResponse, error) {
 	lastTime := LastRequestTime(route)
-	client := &http.Client{}
-	resp, err := http.Get(apiUrl + "&r=" + route + "&t=" + strconv.FormatInt(lastTime, 10))
+	requestURL := apiUrl + "&r=" + route + "&t=" + strconv.FormatInt(lastTime, 10)
+
+	resp, err := transitRequest(requestURL)
 	if err != nil {
 		return nil, err
 	}

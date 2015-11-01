@@ -1,4 +1,4 @@
-package transit
+package muni
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ func TestUnmarshalStops(t *testing.T) {
 	fakeServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/xml")
 		fmt.Fprint(w, `
-			<?xml version="1.0" encoding="utf-8" ?> 
+			<?xml version="1.0" encoding="utf-8" ?>
 			<body copyright="All data copyright San Francisco Muni 2015.">
 				<route tag="N" title="N-Judah" color="003399" oppositeColor="ffffff" latMin="37.7601699" latMax="37.7932299" lonMin="-122.5092" lonMax="-122.38798">
 					<stop tag="5240" title="King St &amp; 4th St" lat="37.7760599" lon="-122.39436" stopId="15240"/>

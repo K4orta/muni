@@ -1,26 +1,29 @@
-package transit
+package muni
 
 import (
 	"encoding/xml"
 	"io/ioutil"
-	"net/http"
 )
 
+// StopResponse is a struct representing the XML document returned by the Nextbus API
 type StopResponse struct {
 	XMLName xml.Name `xml:"body"`
 	Routes  []*Route `xml:"route"`
 }
 
+// Route is a struct that contains the route path and stops along it
 type Route struct {
 	Title string  `xml:"title,attr" json:"title"`
 	Stops []*Stop `xml:"stop" json:"stops"`
 	Paths []*Path `xml:"path" json:"paths"`
 }
 
+// Path is an array of points
 type Path struct {
 	Points []*Point `xml:"point" json:"points"`
 }
 
+// Point is a Lat Lng representation of of geographical coordinate
 type Point struct {
 	Lat float64 `xml:"lat,attr" json:"lat"`
 	Lng float64 `xml:"lon,attr" json:"lng"`
@@ -39,7 +42,7 @@ var (
 )
 
 func GetStopData(route string) (*StopResponse, error) {
-	resp, err := http.Get(stopApiUrl + route)
+	resp, err := transitRequest(stopApiUrl + route)
 	if err != nil {
 		return nil, err
 	}

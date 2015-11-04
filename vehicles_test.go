@@ -55,7 +55,20 @@ func TestGetVehicles(t *testing.T) {
 	if vd.LastTime.Time != 1420919252102 {
 		t.Error("Failed to unmarshal lastTime field")
 	}
+}
 
+func TestMultipleVehicleData(t *testing.T) {
+	fakeServer := makeFakeServer()
+	apiUrl = fakeServer.URL + "/"
+
+	vd, err := GetMultiVehicleData([]string{"N", "L", "J"})
+	if err != nil {
+		t.Error("Test failed", err)
+	}
+
+	if len(vd) != 3 {
+		t.Error("MultiVehicleData did not return three sets of data")
+	}
 }
 
 func makeFakeServer() *httptest.Server {

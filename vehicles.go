@@ -37,6 +37,18 @@ var (
 
 var lastRequestTimes = map[string]int64{}
 
+func GetMultiVehicleData(routes []string) ([]*VehicalResponse, error) {
+	routeData := []*VehicalResponse{}
+	for _, r := range routes {
+		vehicles, err := GetVehiclesData(r)
+		if err != nil {
+			return routeData, err
+		}
+		routeData = append(routeData, vehicles)
+	}
+	return routeData, nil
+}
+
 func GetVehiclesData(route string) (*VehicalResponse, error) {
 	lastTime := LastRequestTime(route)
 	requestURL := apiUrl + "&r=" + route + "&t=" + strconv.FormatInt(lastTime, 10)

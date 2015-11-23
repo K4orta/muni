@@ -8,7 +8,7 @@ import (
 )
 
 type VehicalResponse struct {
-	XMLName  xml.Name   `xml:"body"`
+	XMLName  xml.Name   `xml:"body" json:"-"`
 	Vehicles []*Vehicle `xml:"vehicle" json:"vehicles"`
 	LastTime LastT      `xml:"lastTime" json:"lastTime"`
 }

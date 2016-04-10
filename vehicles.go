@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type VehicalResponse struct {
+type vehicalResponse struct {
 	XMLName  xml.Name   `xml:"body" json:"-"`
 	Vehicles []*Vehicle `xml:"vehicle" json:"vehicles"`
 	LastTime LastT      `xml:"lastTime" json:"lastTime"`
@@ -37,8 +37,8 @@ var (
 
 var lastRequestTimes = map[string]int64{}
 
-func GetMultiVehicleData(routes []string) ([]*VehicalResponse, error) {
-	routeData := []*VehicalResponse{}
+func GetMultiVehicleData(routes []string) ([]*vehicalResponse, error) {
+	routeData := []*vehicalResponse{}
 	for _, r := range routes {
 		vehicles, err := GetVehiclesData(r)
 		if err != nil {
@@ -49,7 +49,7 @@ func GetMultiVehicleData(routes []string) ([]*VehicalResponse, error) {
 	return routeData, nil
 }
 
-func GetVehiclesData(route string) (*VehicalResponse, error) {
+func GetVehiclesData(route string) (*vehicalResponse, error) {
 	lastTime := LastRequestTime(route)
 	requestURL := apiUrl + "&r=" + route + "&t=" + strconv.FormatInt(lastTime, 10)
 
@@ -62,7 +62,7 @@ func GetVehiclesData(route string) (*VehicalResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	var vr VehicalResponse
+	var vr vehicalResponse
 
 	xml.Unmarshal([]byte(b), &vr)
 	lastRequestTimes[route] = vr.LastTime.Time

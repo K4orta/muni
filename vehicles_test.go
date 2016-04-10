@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 func TestLastRequestTimeInit(t *testing.T) {
@@ -69,6 +70,19 @@ func TestMultipleVehicleData(t *testing.T) {
 	if len(vd) != 3 {
 		t.Error("MultiVehicleData did not return three sets of data")
 	}
+}
+
+func TestSetTimeRecieved(t *testing.T) {
+	fakeServer := makeFakeServer()
+	apiUrl = fakeServer.URL + "/"
+	vd, _ := GetVehiclesData("N")
+
+	for _, v := range vd.Vehicles {
+		if v.TimeRecieved != time.Unix(1420919252102, 0) {
+			t.Error("Did not set time for each vehicle")
+		}
+	}
+
 }
 
 func makeFakeServer() *httptest.Server {

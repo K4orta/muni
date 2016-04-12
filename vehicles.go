@@ -18,17 +18,17 @@ type LastT struct {
 }
 
 type Vehicle struct {
-	Id               string    `xml:"id,attr" json:"id"`
-	RouteTag         string    `xml:"routeTag,attr" json:"routeTag"`
-	Lat              float64   `xml:"lat,attr" json:"lat"`
-	Lng              float64   `xml:"lon,attr" json:"lng"`
-	DirTag           string    `xml:"dirTag,attr" json:"dirTag"`
-	Heading          int       `xml:"heading,attr" json:"heading"`
-	LeadingVehicleId string    `xml:"leadingVehicleId,attr" json:"leadingVehicleId"`
-	Predictable      bool      `xml:"predictable,attr" json:"predictalbe"`
-	SpeedKmHr        float32   `xml:"speedKmHr,attr" json:"speedKmHr"`
-	SecsSinceReport  int       `xml:"secsSinceReport,attr" json:"secsSinceReport"`
-	TimeRecieved     time.Time `json:"timeRecieved"`
+	Id               string    `xml:"id,attr" json:"id" db:"vehicle_id"`
+	RouteTag         string    `xml:"routeTag,attr" json:"routeTag" db:"route_tag"`
+	Lat              float64   `xml:"lat,attr" json:"lat" db:"lat"`
+	Lng              float64   `xml:"lon,attr" json:"lng" db:"lng"`
+	DirTag           string    `xml:"dirTag,attr" json:"dirTag" db:"dir_tag"`
+	Heading          int       `xml:"heading,attr" json:"heading" db:"heading"`
+	LeadingVehicleId string    `xml:"leadingVehicleId,attr" json:"leadingVehicleId" db:"leading_vehicle_id"`
+	Predictable      bool      `xml:"predictable,attr" json:"predictable" db:"predictable"`
+	SpeedKmHr        float32   `xml:"speedKmHr,attr" json:"speedKmHr" db:"speed_km_hr"`
+	SecsSinceReport  int       `xml:"secsSinceReport,attr" json:"secsSinceReport" db:"secs_since_report"`
+	TimeRecieved     time.Time `json:"timeRecieved" db:"time_recieved"`
 }
 
 var (

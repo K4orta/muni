@@ -1,5 +1,7 @@
 # MUNI
 -----
+[![Build Status](https://travis-ci.org/K4orta/muni.svg?branch=master)](https://travis-ci.org/K4orta/muni)
+
 A library for requesting data from the SF Nextbus API
 
 ## Installation

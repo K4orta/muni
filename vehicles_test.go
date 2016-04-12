@@ -17,7 +17,7 @@ func TestLastRequestTimeInit(t *testing.T) {
 
 func TestLastRequestTime(t *testing.T) {
 	fakeServer := makeFakeServer()
-	SetConfig(TransitConfig{fakeServer.URL})
+	SetConfig(TransitConfig{fakeServer.URL + "/"})
 	startTime := LastRequestTime("71")
 	GetVehiclesData("71")
 	afterTime := LastRequestTime("71")
@@ -29,7 +29,7 @@ func TestLastRequestTime(t *testing.T) {
 
 func TestLastRequestTimeMultiRoute(t *testing.T) {
 	fakeServer := makeFakeServer()
-	SetConfig(TransitConfig{fakeServer.URL})
+	SetConfig(TransitConfig{fakeServer.URL + "/"})
 	GetVehiclesData("71")
 	startTime := LastRequestTime("71")
 	GetVehiclesData("N")
@@ -42,7 +42,7 @@ func TestLastRequestTimeMultiRoute(t *testing.T) {
 
 func TestGetVehicles(t *testing.T) {
 	fakeServer := makeFakeServer()
-	SetConfig(TransitConfig{fakeServer.URL})
+	SetConfig(TransitConfig{fakeServer.URL + "/"})
 
 	vd, err := GetVehiclesData("N")
 	if err != nil {
@@ -60,7 +60,7 @@ func TestGetVehicles(t *testing.T) {
 
 func TestMultipleVehicleData(t *testing.T) {
 	fakeServer := makeFakeServer()
-	SetConfig(TransitConfig{fakeServer.URL})
+	SetConfig(TransitConfig{fakeServer.URL + "/"})
 
 	vd, err := GetMultiVehicleData([]string{"N", "L", "J"})
 	if err != nil {
@@ -78,9 +78,9 @@ func TestSetTimeRecieved(t *testing.T) {
 	vd, _ := GetVehiclesData("N")
 
 	for _, v := range vd {
-		// if v.TimeRecieved != time.Unix(1420919252102, 0) {
-		// 	t.Error("Did not set time for each vehicle")
-		// }
+		if v.TimeRecieved != parseTime(1420919252102) {
+			t.Error("Did not set time for each vehicle")
+		}
 
 		if v.TimeRecieved.Year() != 2015 || v.TimeRecieved.Month() != time.January || v.TimeRecieved.Day() != 10 {
 			t.Error("Did not convert year correctly. Expected 2015, got:", v.TimeRecieved.Year(), v.TimeRecieved.Month(), v.TimeRecieved.Day())

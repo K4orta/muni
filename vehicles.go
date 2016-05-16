@@ -30,7 +30,7 @@ type Vehicle struct {
 	Predictable      bool      `xml:"predictable,attr" json:"predictable" db:"predictable"`
 	SpeedKmHr        float32   `xml:"speedKmHr,attr" json:"speedKmHr" db:"speed_km_hr"`
 	SecsSinceReport  int       `xml:"secsSinceReport,attr" json:"secsSinceReport" db:"secs_since_report"`
-	TimeRecieved     time.Time `json:"timeRecieved" db:"time_recieved"`
+	TimeReceived     time.Time `json:"timeReceived" db:"time_received"`
 }
 
 var lastRequestTimes = map[string]int64{}
@@ -67,7 +67,7 @@ func GetVehiclesData(route string) ([]*Vehicle, error) {
 	xml.Unmarshal([]byte(b), &vr)
 	lastRequestTimes[route] = vr.LastTime.Time
 	for _, v := range vr.Vehicles {
-		v.TimeRecieved = parseTime(vr.LastTime.Time)
+		v.TimeReceived = parseTime(vr.LastTime.Time)
 	}
 
 	return vr.Vehicles, nil

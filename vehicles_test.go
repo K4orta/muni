@@ -53,7 +53,7 @@ func TestGetVehicles(t *testing.T) {
 		t.Error("Failed to unmarshal vehicles")
 	}
 
-	if vd[0].TimeRecieved != time.Unix(1420919252102/1000, 0) {
+	if vd[0].TimeReceived != time.Unix(1420919252102/1000, 0) {
 		t.Error("Failed to unmarshal lastTime field")
 	}
 }
@@ -72,18 +72,18 @@ func TestMultipleVehicleData(t *testing.T) {
 	}
 }
 
-func TestSetTimeRecieved(t *testing.T) {
+func TestSetTimeReceived(t *testing.T) {
 	fakeServer := makeFakeServer()
 	SetConfig(TransitConfig{fakeServer.URL})
 	vd, _ := GetVehiclesData("N")
 
 	for _, v := range vd {
-		if v.TimeRecieved != parseTime(1420919252102) {
+		if v.TimeReceived != parseTime(1420919252102) {
 			t.Error("Did not set time for each vehicle")
 		}
 
-		if v.TimeRecieved.Year() != 2015 || v.TimeRecieved.Month() != time.January || v.TimeRecieved.Day() != 10 {
-			t.Error("Did not convert year correctly. Expected 2015, got:", v.TimeRecieved.Year(), v.TimeRecieved.Month(), v.TimeRecieved.Day())
+		if v.TimeReceived.Year() != 2015 || v.TimeReceived.Month() != time.January || v.TimeReceived.Day() != 10 {
+			t.Error("Did not convert year correctly. Expected 2015, got:", v.TimeReceived.Year(), v.TimeReceived.Month(), v.TimeReceived.Day())
 		}
 	}
 
